@@ -180,7 +180,7 @@ public class LocalIndexedRepo extends FixedIndexedRepo implements Refreshable, P
 			newFilesInCoordination.clear();
 		}
 		for (Pair<Jar,File> entry : clone) {
-			fireBundleAdded(entry.a, entry.b);
+			fireBundleAdded(entry.getFirst(), entry.getSecond());
 		}
 	}
 
@@ -196,10 +196,10 @@ public class LocalIndexedRepo extends FixedIndexedRepo implements Refreshable, P
 		}
 		for (Pair<Jar,File> entry : clone) {
 			try {
-				entry.b.delete();
+				entry.getSecond().delete();
 			}
 			catch (Exception e) {
-				reporter.warning("Failed to remove repository entry %s on coordination rollback: %s", entry.b, e);
+				reporter.warning("Failed to remove repository entry %s on coordination rollback: %s", entry.getSecond(), e);
 			}
 		}
 	}
